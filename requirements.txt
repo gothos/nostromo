@@ -1,0 +1,4 @@
+Django==1.9
+djangorestframework==3.3.2
+psycopg2==2.6.1
+IPython==4.1.1
