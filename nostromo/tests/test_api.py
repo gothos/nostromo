@@ -9,7 +9,7 @@ import json
 class ApiTestCase(TestCase):
 
     def setUp(self):
-        self.user_tom = User.objects.create(first_name='tom', last_name='cruise')
+        self.user_tom = User.objects.create_user(first_name='tom', last_name='cruise',email='tom.cruise@itcanfly.com')
         self.client = APIClient()
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_tom.auth_token.key)
         matrix1 = [
@@ -65,8 +65,8 @@ class ApiTestCase(TestCase):
 
     def testTryToSaveAllDuplicates(self):
         data = [{
-            "start": 1455828579707,
-            "end": 1455828698961,
+            "start": 1455828698961,
+            "end": 1455828579707,
             "type": "accel",
             "data": [
                 [-0.02, -0.046, -1.004],
@@ -81,8 +81,8 @@ class ApiTestCase(TestCase):
                 [-0.018, -0.046, -1.005]
             ]
         }, {
-            "start": 1455828579709,
-            "end": 1455828698964,
+            "start": 1455828698964,
+            "end": 1455828579709,
             "type": "accel",
             "data": [
                 [-0.01, -0.046, -1.004],
@@ -141,8 +141,8 @@ class ApiTestCase(TestCase):
 
     def testTryToSaveSomeDuplicate(self):
         data = [{
-            "start": 1455828579707,
-            "end": 1455828698961,
+            "start": 1455828698961,
+            "end": 1455828579707,
             "type": "accel",
             "data": [
                 [-0.02, -0.046, -1.004],

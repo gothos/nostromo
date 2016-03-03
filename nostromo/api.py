@@ -8,6 +8,7 @@ from rest_framework.response import Response
 
 from nostromo.models import DataSet
 from nostromo.serializers import DatasetSerializer
+import json
 
 logger = logging.getLogger("api")
 
@@ -21,7 +22,8 @@ class DataSetPushView(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
         processed = 0
         success = 0
-        for data in request.data:
+        converted_data = json.loads(request.data)
+        for data in converted_data:
             start_date = datetime.utcfromtimestamp(data['start']/1000)
             end_date = datetime.utcfromtimestamp(data['end']/1000)
             data_type = data["type"]
