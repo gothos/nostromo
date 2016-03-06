@@ -22,10 +22,19 @@ class DataSetPushView(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
         processed = 0
         success = 0
-        converted_data = json.loads(request.data)
+        converted_data = request.data
+        if not isinstance(converted_data,list):
+            converted_data = [converted_data]
+        #converted_data = json.loads(request.data)
         for data in converted_data:
-            start_date = datetime.utcfromtimestamp(data['start']/1000)
-            end_date = datetime.utcfromtimestamp(data['end']/1000)
+            if 'start' in data.keys():
+                start_date = datetime.utcfromtimestamp(int(data['start'])/1000)
+            elif 'start_date' in data.keys():
+                start_date = datetime.strptime(data['start_date'], "%Y-%m-%dT%H:%M")
+            if 'end' in data.keys():
+                start_date = datetime.utcfromtimestamp(int(data['end'])/1000)
+            elif 'end_date' in data.keys():
+                end_date = datetime.strptime(data['end_date'], "%Y-%m-%dT%H:%M")
             data_type = data["type"]
 
             if not DataSet.objects.filter(type=data_type, start_date=start_date, end_date=end_date, user=request.user).exists():

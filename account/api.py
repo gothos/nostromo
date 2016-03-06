@@ -23,7 +23,7 @@ class UserModelViewSet(ModelViewSet):
     serializer_class = UserSerializer
     serializer_classes = {
         "signin": SignInSerializer,
-        "create": SignUpSerializer,
+        #"create": SignUpSerializer,
     }
 
     def get_serializer_class(self):
@@ -71,7 +71,7 @@ class UserModelViewSet(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @list_route(methods=['post'])
-    def signin(self, request, version):
+    def signin(self, request):
         print(request.data.get("email"))
         print(request.data.get("password"))
         user = authenticate(
